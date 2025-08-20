@@ -1981,6 +1981,9 @@ public:
 
   template <typename Container> void write_row(Container &&row) {
     const auto &strings = std::forward<Container>(row);
+    if (strings.size() == 0) {
+      return;
+    }
     const auto delimiter_string = std::string(1, delimiter::value);
     std::copy(strings.begin(), strings.end() - 1,
               std::ostream_iterator<std::string>(stream_, delimiter_string.c_str()));
