@@ -89,6 +89,8 @@ public:
       result.reserve(end_ - start_);
       for (size_t i = start_; i < end_; ++i)
         result.push_back(buffer_[i]);
+      if (result.back() == '\r')
+        result.pop_back(); // remove trailing \r if present
     }
 
     // If cell is escaped, convert and return correct cell contents,
@@ -105,6 +107,8 @@ public:
           result.erase(i - 1, 1);
         }
       }
+      if (result.back() == '\r')
+        result.pop_back(); // remove trailing \r if present
     }
   };
 
